@@ -62,7 +62,7 @@ namespace MP
             {
                 Stream webRespStream = webResp.GetResponseStream();
                 StreamReader sr = new StreamReader(webRespStream);
-                
+
                 response = sr.ReadToEnd();
 
                 sr.Close();
@@ -83,6 +83,15 @@ namespace MP
             string response = Get("https://api.deckbrew.com/mtg/sets");
             IList<Set> sets = (IList<Set>)Newtonsoft.Json.JsonConvert.DeserializeObject<IList<Set>>(response);
             return sets;
+        }
+
+        public static IList<Card> Search(string name)
+        {
+            string response = Get(string.Format("https://api.deckbrew.com/mtg/cards?name={0}", name));
+
+            IList<Card> cards = Newtonsoft.Json.JsonConvert.DeserializeObject<IList<Card>>(response);
+
+            return cards;
         }
     }
 }

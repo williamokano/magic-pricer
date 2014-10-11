@@ -11,7 +11,7 @@ namespace MP
         [Newtonsoft.Json.JsonProperty("low")]
         public int Low { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("average")]
+        [Newtonsoft.Json.JsonProperty("median")]
         public int Average { get; set; }
 
         [Newtonsoft.Json.JsonProperty("high")]
