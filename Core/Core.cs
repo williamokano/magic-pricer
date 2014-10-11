@@ -85,6 +85,11 @@ namespace MP
             return sets;
         }
 
+        /// <summary>
+        /// Search cards using name as filter
+        /// </summary>
+        /// <param name="name">Card's name (Full or partial)</param>
+        /// <returns>The cards from the Brewdeck API</returns>
         public static IList<Card> Search(string name)
         {
             string response = Get(string.Format("https://api.deckbrew.com/mtg/cards?name={0}", name));
@@ -92,6 +97,23 @@ namespace MP
             IList<Card> cards = Newtonsoft.Json.JsonConvert.DeserializeObject<IList<Card>>(response);
 
             return cards;
+        }
+
+        /// <summary>
+        /// Return the total value of the card's list
+        /// </summary>
+        /// <param name="cards"> The card's list given by the user</param>
+        /// <returns></returns>
+        public static decimal Sum(IList<Card> cards)
+        {
+            decimal sum = 0m;
+
+            foreach (Card c in cards)
+            {
+                sum += (c.Editions[c.SelectedEdition].Price.Average) * c.Quantity;
+            }
+
+            return sum;
         }
     }
 }

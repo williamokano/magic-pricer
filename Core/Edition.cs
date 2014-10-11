@@ -43,5 +43,10 @@ namespace MP
 
         [Newtonsoft.Json.JsonProperty("store_url")]
         public string StoreUrl { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} - ${1}", this.Set, (this.Price.Average)/100.0m);
+        }
     }
 }

@@ -54,12 +54,36 @@ namespace MP
             }
         }
 
+        private int quantity = 0;
+        public int Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    quantity = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Card()
         {
             Types = new List<string>();
             Colors = new List<string>();
             Editions = new List<Edition>();
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
 
     }
 }
