@@ -110,10 +110,20 @@ namespace MP
 
             foreach (Card c in cards)
             {
-                sum += (c.Editions[c.SelectedEdition].Price.Average) * c.Quantity;
+                sum += (c.SelectedEdition.Price.Average) * c.Quantity;
             }
 
-            return sum;
+            return sum/100.0m;
+        }
+
+        /// <summary>
+        /// Set the apropriate card edition given by the user
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="edition"></param>
+        public static void SetSelectedEdition(Card card, Edition edition)
+        {
+            card.SelectedEdition = edition;
         }
     }
 }

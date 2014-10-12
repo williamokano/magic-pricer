@@ -27,7 +27,7 @@ namespace MP
         public IList<string> Colors { get; set; }
 
         [Newtonsoft.Json.JsonProperty("cmc")]
-        public int Cmc { get; set; }
+        public int? Cmc { get; set; }
 
         [Newtonsoft.Json.JsonProperty("cost")]
         public string Cost { get; set; }
@@ -38,21 +38,7 @@ namespace MP
         [Newtonsoft.Json.JsonProperty("editions")]
         public IList<Edition> Editions { get; set; }
 
-        private int selectedEdition;
-        public int SelectedEdition
-        {
-            get { return selectedEdition; }
-            set
-            {
-                if (Editions == null)
-                {
-                    if (value < Editions.Count)
-                    {
-                        selectedEdition = value;
-                    }
-                }
-            }
-        }
+        public Edition SelectedEdition { get; set; }
 
         private int quantity = 0;
         public int Quantity
@@ -80,10 +66,35 @@ namespace MP
             Editions = new List<Edition>();
         }
 
+        public Card(Card card)
+        {
+            this.Name = card.Name;
+            this.Id = card.Id;
+            this.Url = card.Url;
+            this.StoreUrl = card.StoreUrl;
+            this.Types = card.Types;
+            this.Colors = card.Colors;
+            this.Cmc = card.Cmc;
+            this.Cost = card.Cost;
+            this.Text = card.Text;
+            this.Editions = new List<Edition>(card.Editions);
+            this.SelectedEdition = card.SelectedEdition;
+            this.Quantity = card.Quantity;
+
+        }
+
         public override string ToString()
         {
-            return this.Name;
-        }
+            if (this.SelectedEdition == null)
+            {
+                return this.Name;
+            }
+            else
+            {
+                return string.Format("{0} - {1} - ${2}", this.Name, this.SelectedEdition.Set, (this.quantity*(this.SelectedEdition.Price.Average)/100.0m));
+            }
+            
+        }
 
     }
 }

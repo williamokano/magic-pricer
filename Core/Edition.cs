@@ -18,13 +18,13 @@ namespace MP
         public string Artist { get; set; }
 
         [Newtonsoft.Json.JsonProperty("multiverse_id")]
-        public int MultiverseId { get; set; }
+        public int? MultiverseId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("flavor")]
         public string Flavor { get; set; }
 
         [Newtonsoft.Json.JsonProperty("number")]
-        public int Number { get; set; }
+        public int? Number { get; set; }
 
         [Newtonsoft.Json.JsonProperty("layout")]
         public string Layout { get; set; }
@@ -46,7 +46,14 @@ namespace MP
 
         public override string ToString()
         {
-            return string.Format("{0} - ${1}", this.Set, (this.Price.Average)/100.0m);
+            if (this.Price != null)
+            {
+                return string.Format("{0} - ${1}", this.Set, (this.Price.Average) / 100.0m);
+            }
+            else
+            {
+                return this.Set;
+            }
         }
     }
 }
